@@ -1,2 +1,2 @@
-# jwt
-TypeScript Json Web Token implementation
+## JWT
+Simple TypeScript Json Web Token implementation without dependencies.
