@@ -8,3 +8,15 @@ export function createSignature(input: string, secret: string) {
 
     return signature;
 }
+
+export function verifySignature(input: string, signatureToVerify: string, secret: string) {
+    const validSignature = createSignature(input, secret);
+    
+    return validSignature === signatureToVerify;
+}
+
+export function verifyExpiration(exp: number) {
+    const now = Date.now() / 1000;
+
+    return now > exp;
+}

@@ -1,6 +1,7 @@
 export interface JwtPayload {
-    sub: number;
+    exp: number;
     iat: number;
+    iss?: string;
 }
 
 export interface JwtHeader {
@@ -11,4 +12,9 @@ export interface JwtHeader {
 export interface JwtToken<T> {
     header: JwtHeader;
     payload: JwtPayload&T;
+}
+
+export interface JwtOptions {
+    expireAt?: number,
+    issuer?: string;
 }
