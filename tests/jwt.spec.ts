@@ -31,11 +31,16 @@ describe('Test JWT validation', () => {
     }
 
     it ('decoding should be reversible', () => {
-        const token = JWT.create(data, SECRET);
+        const issuer = "issuer";
+        const token = JWT.create(data, SECRET, {
+            issuer,
+        });
+
         const result = JWT.verify<typeof data>(token, SECRET);
 
         expect(result).toBeDefined();
         expect(result?.payload.id).toEqual(data.id);
+        expect(result?.payload.iss).toEqual(issuer);
     });
 
     it ('should fail validation because token should be expired', async () => {
