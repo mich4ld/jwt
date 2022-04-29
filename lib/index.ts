@@ -21,6 +21,11 @@ class JWT {
     }
  
     static create<T>(data: T, secret: string, options: JwtOptions = defaultJwtOptions) {
+        options = {
+            ...defaultJwtOptions,
+            ...options,
+        }
+
         const header = encodeBase64(this.createHeader());
         const payload = encodeBase64(this.createPayload(data, options));
 
@@ -31,11 +36,16 @@ class JWT {
     }
 
     static verify<T>(token: string, secret: string): JwtToken<T>|undefined {
+        const tokenParts = token.split('.');
+        if (tokenParts.length !== 3) {
+            return;
+        }
+
         const [
             base64header,
             base64payload,
             signature
-        ] = token.split('.');
+        ] = tokenParts;
 
         const input = `${base64header}.${base64payload}`;
         const isValid = verifySignature(input, signature, secret);
@@ -59,8 +69,29 @@ class JWT {
 
         return jwt;
     }
-}
 
+    static decode<T>(token: string): JwtToken<T>|undefined {
+        const tokenParts = token.split('.');
+        if (tokenParts.length !== 3) {
+            return;
+        }
+
+        const [
+            base64header,
+            base64payload,
+        ] = tokenParts;
+
+        const header = decodeBase64(base64header) as JwtHeader;
+        const payload = decodeBase64(base64payload) as JwtPayload & T;
+
+        const jwt: JwtToken<T> = {
+            header,
+            payload,
+        }
+
+        return jwt;
+    }
+}
 
 interface UserPayload {
     id: number,
@@ -74,12 +105,12 @@ const user: UserPayload = {
 }
 
 const token = JWT.create(user, secret, {
-    expireAt: Math.floor((Date.now() / 1000) + 5),
-    issuer: "Miszq"
+    issuer: "miszq2137",
 });
 console.log(token);
 
-const jwt = JWT.verify(token, secret);
+const jwt = JWT.verify<UserPayload>(token, secret);
+console.log(jwt?.payload.username);
 console.log('JWT should be valid:', jwt);
 
 setTimeout(() => {
