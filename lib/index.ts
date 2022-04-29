@@ -3,7 +3,7 @@ import { defaultJwtOptions } from "./constants";
 import { JwtHeader, JwtOptions, JwtPayload, JwtToken } from "./interfaces";
 import { createSignature, verifyExpiration, verifySignature } from "./validation";
 
-class JWT {
+export class JWT {
     private static createHeader(): JwtHeader {
         return {
             alg: "HS256",
@@ -92,28 +92,3 @@ class JWT {
         return jwt;
     }
 }
-
-interface UserPayload {
-    id: number,
-    username: string,
-}
-
-const secret = "topsecret";
-const user: UserPayload = {
-    id: 2137,
-    username: "Mariusz T."
-}
-
-const token = JWT.create(user, secret, {
-    issuer: "miszq2137",
-});
-console.log(token);
-
-const jwt = JWT.verify<UserPayload>(token, secret);
-console.log(jwt?.payload.username);
-console.log('JWT should be valid:', jwt);
-
-setTimeout(() => {
-    const jwt = JWT.verify(token, secret);
-    console.log('JWT should be INVALID:', jwt);
-}, 7 * 1000);

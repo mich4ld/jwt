@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Simple JWT library",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "test"
+    "test": "jest",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -27,5 +31,9 @@
     "jest": "^27.3.1",
     "ts-jest": "^27.0.7",
     "typescript": "^4.4.4"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testTimeout": 60000
   }
 }
