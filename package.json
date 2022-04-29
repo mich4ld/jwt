@@ -1,0 +1,31 @@
+{
+  "name": "@mich4l/jwt",
+  "version": "1.0.0",
+  "description": "Simple JWT library",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mich4ld/jwt.git"
+  },
+  "keywords": [
+    "jwt",
+    "auth",
+    "crypto"
+  ],
+  "author": "mich4ld",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mich4ld/jwt/issues"
+  },
+  "homepage": "https://github.com/mich4ld/jwt#readme",
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.32",
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.4.4"
+  }
+}
